@@ -1,3 +1,5 @@
+//Dan Fisher
+
 //Ready function to init the program
 $(document).ready(function(){
     //Ready the Side Bar on Ready
