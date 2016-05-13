@@ -3,12 +3,19 @@ $(document).ready(function(){
     //Ready the Side Bar on Ready
     $(".button-collapse").sideNav();
     //Set the init state of the card
-    initState();
-    //Add a listener to thr optionPicker to change the text
+    initState(tree._root);
+    //Add a listener to the optionPicker to change the text
     $('#optionPicker').submit(function(event){
         event.preventDefault(); //Stop the normal submission
-        
+        processSubmit();
     });
+    //Add a listener to the start over button
+    $('#btnStartOver').click(function(){
+        //Init the start state again
+        initState(tree._root);
+        //Click somewhere else to close the side bar
+        $("#sidenav-overlay").trigger("click");
+    })
 });
 
 //----- Define the Tree structure -----
@@ -68,19 +75,17 @@ tree._root.children[0].children[2].parent = tree._root.children[0];
 //----- Functions -----
 
 //Set the card to the start state on the tree
-function initState(){
+function initState(stateData){
     //Set the state to be the root of the Tree 
-    state = tree._root;
+    state = stateData;
     $('#storyText').text(state.data);
     //Clear the choice_area div before adding anything new
     clearDiv();
     var counter = 0;
     //Add all Radio Buttons
     state.children.forEach(function(child){
-        var btnRadio = $('<input type="radio" class="with-gap" name="group1" id="option'+ counter +'"/>');
-        var lbRadio = $('<lable for="option'+ counter +'">'+ child.vert +'</lable><br/>');
+        var btnRadio = $('<p><input type="radio" class="with-gap" name="group1" id="option'+counter+'" value="'+counter+'"/><label for="option'+ counter +'">'+ child.vert +'</label></p>');
         $('#choice_area').append(btnRadio);
-        $('#choice_area').append(lbRadio);
         counter++;
     });
 
@@ -93,5 +98,8 @@ function clearDiv(){
 
 //Process a submit and change content and state
 function processSubmit(){
-    
+    var selectedValue = $('input[type="radio"]:checked').val();
+    if(selectedValue >= 0){
+        initState(state.children[selectedValue]);
+    }
 }
