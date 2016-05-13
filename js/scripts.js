@@ -1,43 +1,35 @@
+//Ready function to init the program
 $(document).ready(function(){
     //Ready the Side Bar on Ready
     $(".button-collapse").sideNav();
-    
+    //Set the init state of the card
+    initState();
     //Add a listener to thr optionPicker to change the text
     $('#optionPicker').submit(function(event){
         event.preventDefault(); //Stop the normal submission
         
-        var textToSet = "None Selected";
-        if ($("#option1").is(":checked")){
-            textToSet = $("#option1").text();
-        }
-        console.log(textToSet);
-        $('#storyText').text(function(i, oldText){
-            return "Testing";
-        });
     });
 });
 
 //----- Define the Tree structure -----
 
 //A node in my story tree
-function Node(storyData){
-    this.storyData = storyData;
+function Node(storyData,vertData){
+    this.data = storyData;
     this.parent = null;
-    //This is an array of Verts
-    this.children = []
+    this.vert = vertData;
+    //This is an array of Nodes
+    this.children = [];
 }
 
-//A verticy object which connects nodes
-function Vert(choice, node){
-    this.choice = choice;
-    this.node = node;
-}
-
-//The story Tree which contains nodes and verts
+//The story Tree which contains nodes
 function Tree(data){
     var node = new Node(data);
     this._root = node;
 }
+
+//The Current state of the program
+var state;
 
 //----- Define the Node values -----
 
@@ -58,19 +50,48 @@ var vert_value_10_2 = "Jane...";
 var tree = new Tree(node_vlaue_00);
 
 //Node 00 (Starting Node)
-tree._root.children.push(new Vert(vert_value_00_0,new Node(node_value_10)));
+tree._root.children.push(new Node(node_value_10,vert_value_00_0));
 tree._root.children[0].parent = tree;
-tree._root.children.push(new Vert(vert_value_00_1, new Node(tbd)));
+tree._root.children.push(new Node(tbd,vert_value_00_1));
 tree._root.children[1].parent = tree;
-tree._root.children.push(new Vert(vert_value_00_2, new Node(tbd)));
+tree._root.children.push(new Node(tbd,vert_value_00_2));
 tree._root.children[2].parent = tree;
 
 //Node 10
-tree._root.children.push(new Vert(vert))
+tree._root.children[0].children.push(new Node(tbd,vert_value_10_0));
+tree._root.children[0].children[0].parent = tree._root.children[0];
+tree._root.children[0].children.push(new Node(tbd,vert_value_10_1));
+tree._root.children[0].children[1].parent = tree._root.children[0];
+tree._root.children[0].children.push(new Node(tbd,vert_value_10_2));
+tree._root.children[0].children[2].parent = tree._root.children[0];
 
 //----- Functions -----
 
 //Set the card to the start state on the tree
 function initState(){
-    return;
+    //Set the state to be the root of the Tree 
+    state = tree._root;
+    $('#storyText').text(state.data);
+    //Clear the choice_area div before adding anything new
+    clearDiv();
+    var counter = 0;
+    //Add all Radio Buttons
+    state.children.forEach(function(child){
+        var btnRadio = $('<input type="radio" class="with-gap" name="group1" id="option'+ counter +'"/>');
+        var lbRadio = $('<lable for="option'+ counter +'">'+ child.vert +'</lable><br/>');
+        $('#choice_area').append(btnRadio);
+        $('#choice_area').append(lbRadio);
+        counter++;
+    });
+
+}
+
+//Clear the choice_area div
+function clearDiv(){
+    $('#choice_area').empty();
+}
+
+//Process a submit and change content and state
+function processSubmit(){
+    
 }
