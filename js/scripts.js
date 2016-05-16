@@ -2,8 +2,6 @@
 
 //Ready function to init the program
 $(document).ready(function(){
-    //Ready the Side Bar on Ready
-    $(".button-collapse").sideNav();
     //Set the init state of the card
     initState(tree._root);
     //Add a listener to the optionPicker to change the text
