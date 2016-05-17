@@ -4,9 +4,12 @@
 	padding:10px;
 }
 
+.card{
+    height: auto;
+}
+
 .custom-fill{
     max-height: 100%;
-    height: auto;
     overflow: hidden;
     padding: 20px;
     border-radius: 0 0 2px 2px;
