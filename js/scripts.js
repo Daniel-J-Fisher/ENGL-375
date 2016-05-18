@@ -96,8 +96,20 @@ tree._root.children[2].children.push(new Node(node_value_21, vert_value_12_1));
 tree._root.children[2].children.push(new Node(node_value_22, vert_value_12_2));
 
 //Node 20
-tree._root.children[1].children[0].children.push(new Node(tbd, vert_value_22_0));
-tree._root.children[1].children[0].children.push(new Node(tbd, vert_value_22_1));
+tree._root.children[1].children[0].children.push(new Node(tbd, vert_value_20_0));
+tree._root.children[1].children[0].children.push(new Node(tbd, vert_value_20_1));
+tree._root.children[2].children[0].children.push(new Node(tbd, vert_value_20_0));
+tree._root.children[2].children[0].children.push(new Node(tbd, vert_value_20_1));
+
+//Node 21
+tree._root.children[1].children[1].children.push(new Node(tbd, vert_value_21_0));
+tree._root.children[1].children[1].children.push(new Node(tbd, vert_value_21_1));
+tree._root.children[2].children[1].children.push(new Node(tbd, vert_value_21_0));
+tree._root.children[2].children[1].children.push(new Node(tbd, vert_value_21_1));
+
+//Node 22
+tree._root.children[2].children[2].children.push(new Node(tbd, vert_value_22_0));
+tree._root.children[2].children[2].children.push(new Node(tbd, vert_value_22_1));
 
 //----- Functions -----
 
